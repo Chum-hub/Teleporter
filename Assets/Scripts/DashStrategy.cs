@@ -5,9 +5,8 @@ using UnityEngine.InputSystem;
 
 public class DashStrategy : IDashStrategy
 {
-	private Boolean isDashReady = true;
 
-	public void Dash(Rigidbody rb, MovementSetting movementSetting, Transform cameraPivot, InputAction dash, InputAction move, MonoBehaviour context)
+	public void Dash(Rigidbody rb, MovementSetting movementSetting, Transform cameraPivot, InputAction dash, InputAction move, MonoBehaviour context, ref Boolean isDashReady)
 	{
 		if (!dash.IsPressed() || !isDashReady) return;
 
@@ -25,12 +24,13 @@ public class DashStrategy : IDashStrategy
 		rb.AddForce(dashDirection.normalized * movementSetting.dashSpeed, ForceMode.Impulse);
 
 		context.StartCoroutine(Cooldown());
+		
 	}
 
 	private IEnumerator Cooldown()
 	{
-		isDashReady = false;
+		// isDashReady = false;
 		yield return new WaitForSeconds(5f);
-		isDashReady = true;
+		// isDashReady = true;
 	}
 }

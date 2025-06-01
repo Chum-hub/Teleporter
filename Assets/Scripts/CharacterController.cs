@@ -20,16 +20,18 @@ public class CharacterController : MonoBehaviour
 	private InputAction look;
 	private InputAction sprint;
 	private InputAction dash;
+	private InputAction _throw;
 
 	private float verticalLookAngle = 0f;
 	private bool isSprinting = false;
 	private bool isGrounded = true;
+	private bool isDashReady = true;
 
 	private IMovementStrategy movementStrategy = new WalkMovementStrategy();
 	private ILookStrategy lookStrategy = new LookStrategy();
 	private IJumpStrategy jumpStrategy = new JumpStrategy();
 	private IDashStrategy dashStrategy = new DashStrategy();
-
+	
 	private void Awake()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -47,7 +49,12 @@ public class CharacterController : MonoBehaviour
 
 	private void HandleLook() => lookStrategy.Look(transform, movementSetting, cameraPivot, look, ref verticalLookAngle);
 	
-	private void HandleDash() => dashStrategy.Dash(rb, movementSetting, cameraPivot, dash, move, this);
+	private void HandleDash() => dashStrategy.Dash(rb, movementSetting, cameraPivot, dash, move, this, ref isDashReady);
+
+	private void HandleThrow()
+	{
+		
+	}
 
 	private void OnCollisionEnter(Collision other)
 	{
@@ -61,6 +68,7 @@ public class CharacterController : MonoBehaviour
 		HandleMovement();
 		HandleJump();
 		HandleDash();
+		HandleThrow();
 	}
 
 	private void SetupInput()
@@ -71,5 +79,6 @@ public class CharacterController : MonoBehaviour
 		look = inputActions.Player.Look;
 		sprint = inputActions.Player.Sprint;
 		dash = inputActions.Player.Dash;
+		_throw = inputActions.Player.Throw;
 	}
 }
