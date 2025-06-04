@@ -23,14 +23,12 @@ public class DashStrategy : IDashStrategy
 
 		rb.AddForce(dashDirection.normalized * movementSetting.dashSpeed, ForceMode.Impulse);
 
-		context.StartCoroutine(Cooldown());
-		
+		//context.StartCoroutine(Cooldown(() => isDashReady = true));
 	}
 
-	private IEnumerator Cooldown()
+	private IEnumerator Cooldown(Action onComplete)
 	{
-		// isDashReady = false;
 		yield return new WaitForSeconds(5f);
-		// isDashReady = true;
+		onComplete?.Invoke();
 	}
 }
