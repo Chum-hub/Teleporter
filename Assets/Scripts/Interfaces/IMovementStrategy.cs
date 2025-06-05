@@ -4,5 +4,5 @@ using UnityEngine.InputSystem;
 
 public interface IMovementStrategy
 {
-	void Move(Rigidbody rb, Transform cameraPivot, InputAction move, MovementSetting movementSetting,ref  Boolean isSprinting, InputAction action, Boolean isGrounded);
+	void Move(Rigidbody rb, Transform cameraPivot, Vector2 moveInput, MovementSetting settings, bool isSprinting, CharacterState state);
 }

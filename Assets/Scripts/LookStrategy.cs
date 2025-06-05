@@ -1,21 +1,13 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class LookStrategy : ILookStrategy
 {
-	private ILookStrategy _lookStrategyImplementation;
-
-	public void Look(Transform transform, MovementSetting movementSetting, Transform cameraPivot, InputAction look, ref Single verticalLookAngle)
+	public void Look(Transform character, MovementSetting settings, Transform cameraPivot, Vector2 lookInput, CharacterState state)
 	{
-		var lookVector = look.ReadValue<Vector2>();
-		if (lookVector.sqrMagnitude < 0.01f) return;
+		state.VerticalLookAngle -= lookInput.y * settings.lookSensitivity;
+		state.VerticalLookAngle = Mathf.Clamp(state.VerticalLookAngle, settings.minLookAngle, settings.maxLookAngle);
 
-		float mouseX = lookVector.x * movementSetting.rotationSpeed;
-		float mouseY = lookVector.y * movementSetting.rotationSpeed;
-		transform.Rotate(Vector3.up * mouseX);
-
-		verticalLookAngle = Mathf.Clamp(verticalLookAngle - mouseY, movementSetting.minLookAngle, movementSetting.maxLookAngle);
-		cameraPivot.localEulerAngles = new Vector3(verticalLookAngle, 0f, 0f);
+		cameraPivot.localRotation = Quaternion.Euler(state.VerticalLookAngle, 0, 0);
+		character.Rotate(Vector3.up * lookInput.x * settings.lookSensitivity);
 	}
 }

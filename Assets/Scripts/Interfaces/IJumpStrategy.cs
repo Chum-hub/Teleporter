@@ -4,5 +4,5 @@ using UnityEngine.InputSystem;
 
 public interface IJumpStrategy
 {
-	void Jump(ref Boolean  isGrounded, Rigidbody rb, MovementSetting movementSetting, InputAction jump);
+	public void Jump(Rigidbody rb, MovementSetting settings, bool jumpPressed, CharacterState state);
 }

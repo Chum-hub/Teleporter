@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: MovementSetting_Standart
   m_EditorClassIdentifier: 
   speed: 6
-  jumpForce: 150
-  rotationSpeed: 0.14
+  jumpForce: 6
   sprintSpeed: 10
   maxLookAngle: 70
   minLookAngle: -60
-  dashSpeed: 4310
+  lookSensitivity: 0.11
+  dashForce: 30
+  dashCooldown: 3

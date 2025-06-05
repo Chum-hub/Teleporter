@@ -1,34 +1,30 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class WalkMovementStrategy : IMovementStrategy
 {
-	public void Move(Rigidbody rb, Transform cameraPivot, InputAction move, MovementSetting movementSetting, ref Boolean isSprinting, InputAction sprint, Boolean isGrounded)
+	public void Move(Rigidbody rb, Transform cameraPivot, Vector2 moveInput, MovementSetting settings, bool isSprinting, CharacterState state)
 	{
-		var moveVector = move.ReadValue<Vector2>();
-		isSprinting = sprint.IsPressed() && isGrounded;
-		if (moveVector.sqrMagnitude < 0.01f)
+		if (moveInput == Vector2.zero)
 		{
-			Vector3 stop = rb.linearVelocity;
-			stop.x = 0;
-			stop.z = 0;
-			rb.linearVelocity = stop;
+			state.IsMoving = false;
 			return;
 		}
 
 		Vector3 forward = cameraPivot.forward;
 		Vector3 right = cameraPivot.right;
-		forward.y = 0;
-		right.y = 0;
+
+		forward.y = 0f;
+		right.y = 0f;
+
 		forward.Normalize();
 		right.Normalize();
 
-		Vector3 direction = (forward * moveVector.y + right * moveVector.x).normalized;
-		float speed = isSprinting ? movementSetting.sprintSpeed : movementSetting.speed;
-		Vector3 velocity = direction * speed;
-		velocity.y = rb.linearVelocity.y;
+		Vector3 moveDir = forward * moveInput.y + right * moveInput.x;
+		float speed = isSprinting ? settings.sprintSpeed : settings.speed;
+		Vector3 targetPosition = rb.position + moveDir.normalized * speed * Time.fixedDeltaTime;
 
-		rb.linearVelocity = velocity;
+		rb.MovePosition(targetPosition);
+		state.IsMoving = true;
 	}
 }
+

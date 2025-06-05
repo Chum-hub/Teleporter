@@ -1,13 +1,12 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class JumpStrategy : IJumpStrategy
 {
-	public void Jump(ref Boolean  isGrounded, Rigidbody rb, MovementSetting movementSetting, InputAction jump)
+	public void Jump(Rigidbody rb, MovementSetting settings, bool jumpPressed, CharacterState state)
 	{
-		if (!isGrounded || !jump.IsPressed()) return;
-		rb.AddForce(Vector3.up * movementSetting.jumpForce, ForceMode.Impulse);
-		isGrounded = false;
-	} 
+		if (!jumpPressed || !state.IsGrounded) return;
+
+		rb.AddForce(Vector3.up * settings.jumpForce, ForceMode.Impulse);
+		state.IsGrounded = false;
+	}
 }

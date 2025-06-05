@@ -1,34 +1,27 @@
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class DashStrategy : IDashStrategy
 {
+	private float _lastDashTime;
 
-	public void Dash(Rigidbody rb, MovementSetting movementSetting, Transform cameraPivot, InputAction dash, InputAction move, MonoBehaviour context, ref Boolean isDashReady)
+	public void Dash(Rigidbody rb, MovementSetting settings, Transform cameraPivot, bool dashPressed, Vector2 moveInput, MonoBehaviour mono, CharacterState state)
 	{
-		if (!dash.IsPressed() || !isDashReady) return;
-
-		Vector2 moveVector = move.ReadValue<Vector2>();
+		if (!dashPressed || Time.time < _lastDashTime + settings.dashCooldown || !state.IsDashReady) return;
 
 		Vector3 forward = cameraPivot.forward;
 		Vector3 right = cameraPivot.right;
-		forward.y = 0;
-		right.y = 0;
-		forward.Normalize();
-		right.Normalize();
 
-		Vector3 dashDirection = forward * moveVector.y + right * moveVector.x;
+		forward.y = 0f;
+		right.y = 0f;
 
-		rb.AddForce(dashDirection.normalized * movementSetting.dashSpeed, ForceMode.Impulse);
+		Vector3 dashDir = (forward * moveInput.y + right * moveInput.x).normalized;
+		if (dashDir == Vector3.zero)
+			dashDir = cameraPivot.forward;
 
-		//context.StartCoroutine(Cooldown(() => isDashReady = true));
-	}
+		rb.AddForce(dashDir.normalized * settings.dashForce, ForceMode.Impulse);
+		state.IsDashReady = false;
+		_lastDashTime = Time.time;
 
-	private IEnumerator Cooldown(Action onComplete)
-	{
-		yield return new WaitForSeconds(5f);
-		onComplete?.Invoke();
+		// todo
 	}
 }

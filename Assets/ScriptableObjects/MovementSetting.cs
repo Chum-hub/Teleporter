@@ -5,9 +5,10 @@ public class MovementSetting : ScriptableObject
 {
 	public float speed;
 	public float jumpForce;
-	public float rotationSpeed;
 	public float sprintSpeed;
 	public float maxLookAngle;
 	public float minLookAngle;
-	public float dashSpeed;
+	public float lookSensitivity;
+	public float dashForce;
+	public float dashCooldown;
 }
