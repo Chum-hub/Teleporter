@@ -534,6 +534,7 @@ GameObject:
   - component: {fileID: 447592649}
   - component: {fileID: 447592650}
   - component: {fileID: 447592651}
+  - component: {fileID: 447592652}
   m_Layer: 0
   m_Name: PLayer
   m_TagString: Untagged
@@ -672,8 +673,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f7fc0166f3560489a5f1f4e25f442d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraPivot: {fileID: 2145760131}
-  movementSetting: {fileID: 11400000, guid: af9456923f980264893c95866c22317d, type: 2}
+  _cameraPivot: {fileID: 2145760131}
+  _movementSetting: {fileID: 11400000, guid: af9456923f980264893c95866c22317d, type: 2}
 --- !u!114 &447592651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,6 +685,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2f4082b8c78fc144b9ba1595552ada6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &447592652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447592644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88be574ed6625a9468aa907184238cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &832575517

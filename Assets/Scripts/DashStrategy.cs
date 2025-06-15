@@ -1,12 +1,14 @@
+using System;
 using UnityEngine;
 
 public class DashStrategy : IDashStrategy
 {
-	private float _lastDashTime;
+	private Single _lastDashTime;
 
-	public void Dash(Rigidbody rb, MovementSetting settings, Transform cameraPivot, bool dashPressed, Vector2 moveInput, MonoBehaviour mono, CharacterState state)
+	public void Dash(Rigidbody rb, MovementSetting settings, Transform cameraPivot, Boolean dashPressed, Vector2 moveInput, MonoBehaviour mono, CharacterState state)
 	{
-		if (!dashPressed || Time.time < _lastDashTime + settings.dashCooldown || !state.IsDashReady) return;
+		if (!dashPressed || Time.time < _lastDashTime + settings.dashCooldown || !IsDashReady(state))
+			return;
 
 		Vector3 forward = cameraPivot.forward;
 		Vector3 right = cameraPivot.right;
@@ -23,5 +25,11 @@ public class DashStrategy : IDashStrategy
 		_lastDashTime = Time.time;
 
 		// todo
+	}
+
+	private Boolean IsDashReady(CharacterState state)
+	{
+		if (Time.time > _lastDashTime && !state.IsDashReady) state.IsDashReady = true;
+		return state.IsDashReady;
 	}
 }

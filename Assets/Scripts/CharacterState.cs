@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class CharacterState : MonoBehaviour
+public sealed class CharacterState : MonoBehaviour
 {
 	public Single VerticalLookAngle { get; set; } = 0;
 	public Boolean IsGrounded { get; set; } = true;
