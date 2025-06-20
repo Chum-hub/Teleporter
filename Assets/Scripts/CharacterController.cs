@@ -30,7 +30,6 @@ public class CharacterController : MonoBehaviour
 		HandleJump();
 		HandleLook();
 		HandleDash();
-		HandleThrow();
 	}
 
 	private void OnCollisionEnter(Collision other)
@@ -50,9 +49,4 @@ public class CharacterController : MonoBehaviour
 
 	private void HandleDash() =>
 		_dashStrategy.Dash(_rb, _movementSetting, _cameraPivot, _inputCache.DashPressed, _inputCache.MoveInput, this, _state);
-
-	private void HandleThrow()
-	{
-		// todo
-	}
 }

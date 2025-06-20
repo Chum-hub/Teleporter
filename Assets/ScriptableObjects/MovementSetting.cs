@@ -11,4 +11,5 @@ public class MovementSetting : ScriptableObject
 	public float lookSensitivity;
 	public float dashForce;
 	public float dashCooldown;
+	public float throwForce;
 }

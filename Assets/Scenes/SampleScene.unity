@@ -533,6 +533,7 @@ GameObject:
   - component: {fileID: 447592645}
   - component: {fileID: 447592649}
   - component: {fileID: 447592650}
+  - component: {fileID: 447592653}
   - component: {fileID: 447592651}
   - component: {fileID: 447592652}
   m_Layer: 0
@@ -699,6 +700,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88be574ed6625a9468aa907184238cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &447592653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447592644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c62afa7e780401d8a832c40ba7c2fbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectilePrefab: {fileID: 8469340656144921636, guid: c33be026b48737247ae1d27008064d0d, type: 3}
+  _throwOrigin: {fileID: 1232700793}
+  _throwForce: 10
+  _cameraPivot: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
