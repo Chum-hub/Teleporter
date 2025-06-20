@@ -5,7 +5,7 @@ public class ThrowController : MonoBehaviour
 {
 	[SerializeField] private GameObject _projectilePrefab;
 	[SerializeField] private Transform _throwOrigin;
-	[SerializeField] private Single _throwForce = 10f;
+	[SerializeField] private Single _throwForce = 20f;
 
 	private CharacterState _playerState;
 	private PlayerInputCache _inputCache;
@@ -26,6 +26,8 @@ public class ThrowController : MonoBehaviour
 	{
 		if (!_inputCache.ThrowPressed) return;
 
+		_inputCache.ThrowPressed = false;
+
 		var verticalAngle = _playerState.VerticalLookAngle;
 		GameObject projectile = Instantiate(_projectilePrefab, _throwOrigin.position, Quaternion.identity);
 
@@ -37,6 +39,6 @@ public class ThrowController : MonoBehaviour
 		direction = pitchRotation * direction;
 
 		Rigidbody rb = projectile.GetComponent<Rigidbody>();
-		rb.AddRelativeForce(direction * _throwForce, ForceMode.Impulse);
+		rb.AddForce(direction * _throwForce, ForceMode.Impulse);
 	}
 }

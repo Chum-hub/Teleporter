@@ -11,7 +11,7 @@ public class PlayerInputCache : MonoBehaviour
 	public Boolean JumpPressed { get; private set; }
 	public Boolean DashPressed { get; private set; }
 	public Boolean SprintPressed { get; private set; }
-	public Boolean ThrowPressed { get; private set; }
+	public Boolean ThrowPressed { get; set; }
 
 	private InputAction _move, _jump, _look, _sprint, _dash, _throw;
 
@@ -27,7 +27,7 @@ public class PlayerInputCache : MonoBehaviour
 		JumpPressed = _jump.IsPressed();
 		DashPressed = _dash.IsPressed();
 		SprintPressed = _sprint.IsPressed();
-		ThrowPressed = _throw.IsPressed();
+		ThrowPressed = _throw.triggered;
 	}
 
 	private void SetupInput()
