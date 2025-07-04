@@ -1,27 +1,29 @@
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(Rigidbody))]
 public class CharacterController : MonoBehaviour
 {
-	[Header("References")]
 	[SerializeField] private Transform _cameraPivot;
-	[SerializeField] private MovementSetting _movementSetting;
 
-	private Rigidbody _rb;
-	private CharacterState _state;
+	[Inject] private IMovementStrategy _movementStrategy;
+	[Inject] private MovementSetting _movementSetting;
+	[Inject] private ILookStrategy _lookStrategy;
+	[Inject] private IJumpStrategy _jumpStrategy;
+	[Inject] private IDashStrategy _dashStrategy;
+
 	private PlayerInputCache _inputCache;
-
-	private readonly IMovementStrategy _movementStrategy = new WalkMovementStrategy();
-	private readonly ILookStrategy _lookStrategy = new LookStrategy();
-	private readonly IJumpStrategy _jumpStrategy = new JumpStrategy();
-	private readonly IDashStrategy _dashStrategy = new DashStrategy();
+	private CharacterState _state;
+	private Rigidbody _rb;
 
 	private void Awake()
 	{
-		_rb = GetComponent<Rigidbody>();
-		_state = GetComponent<CharacterState>();
 		_inputCache = GetComponent<PlayerInputCache>();
-		_rb.freezeRotation = true;
+		_state = GetComponent<CharacterState>();
+		_rb = GetComponent<Rigidbody>();
+
+		if (_cameraPivot == null)
+			Debug.LogError("[CharacterController] _cameraPivot is NULL!");
 	}
 
 	private void FixedUpdate()
@@ -30,12 +32,6 @@ public class CharacterController : MonoBehaviour
 		HandleJump();
 		HandleLook();
 		HandleDash();
-	}
-
-	private void OnCollisionEnter(Collision other)
-	{
-		if (other.contactCount > 0 && other.contacts[0].normal.y > 0.5f)
-			_state.IsGrounded = true;
 	}
 
 	private void HandleLook() =>
@@ -49,4 +45,10 @@ public class CharacterController : MonoBehaviour
 
 	private void HandleDash() =>
 		_dashStrategy.Dash(_rb, _movementSetting, _cameraPivot, _inputCache.DashPressed, _inputCache.MoveInput, this, _state);
+
+	private void OnCollisionEnter(Collision other)
+	{
+		if (other.contactCount > 0 && other.contacts[0].normal.y > 0.5f)
+			_state.IsGrounded = true;
+	}
 }
