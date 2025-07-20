@@ -1,8 +1,9 @@
-using System;
-using UnityEngine;
-using UnityEngine.InputSystem;
+using Player;
 
-public interface ILookStrategy
+namespace Interfaces
 {
-	void Look(Transform character, MovementSetting settings, Transform cameraPivot, Vector2 lookInput, CharacterState state);
+	public interface ILookStrategy
+	{
+		void Look(PlayerContext context);
+	}
 }

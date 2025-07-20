@@ -1,12 +1,13 @@
+using Player;
 using UnityEngine;
 
 public class JumpStrategy : IJumpStrategy
 {
-	public void Jump(Rigidbody rb, MovementSetting settings, bool jumpPressed, CharacterState state)
+	public void Jump(PlayerContext context)
 	{
-		if (!jumpPressed || !state.IsGrounded) return;
+		if (!context.InputCache.JumpPressed || !context.State.IsGrounded) return;
 
-		rb.AddForce(Vector3.up * settings.jumpForce, ForceMode.Impulse);
-		state.IsGrounded = false;
+		context.Rigidbody.AddForce(Vector3.up * context.Settings.jumpForce, ForceMode.Impulse);
+		context.State.IsGrounded = false;
 	}
 }

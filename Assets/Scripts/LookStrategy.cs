@@ -1,13 +1,16 @@
+using Interfaces;
+using Player;
 using UnityEngine;
 
 public class LookStrategy : ILookStrategy
 {
-	public void Look(Transform character, MovementSetting settings, Transform cameraPivot, Vector2 lookInput, CharacterState state)
+	
+	public void Look(PlayerContext context)
 	{
-		state.VerticalLookAngle -= lookInput.y * settings.lookSensitivity;
-		state.VerticalLookAngle = Mathf.Clamp(state.VerticalLookAngle, settings.minLookAngle, settings.maxLookAngle);
+		context.State.VerticalLookAngle -= context.InputCache.LookInput.y * context.Settings.lookSensitivity;
+		context.State.VerticalLookAngle = Mathf.Clamp(context.State.VerticalLookAngle, context.Settings.minLookAngle, context.Settings.maxLookAngle);
 
-		cameraPivot.localRotation = Quaternion.Euler(state.VerticalLookAngle, 0, 0);
-		character.Rotate(Vector3.up * lookInput.x * settings.lookSensitivity);
+		context.CameraPivot.localRotation = Quaternion.Euler(context.State.VerticalLookAngle, 0, 0);
+		context.CharacterTransform.Rotate(Vector3.up * context.InputCache.LookInput.x * context.Settings.lookSensitivity);
 	}
 }

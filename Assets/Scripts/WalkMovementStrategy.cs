@@ -1,17 +1,18 @@
+using Player;
 using UnityEngine;
 
 public class WalkMovementStrategy : IMovementStrategy
 {
-	public void Move(Rigidbody rb, Transform cameraPivot, Vector2 moveInput, MovementSetting settings, bool isSprinting, CharacterState state)
+	public void Move(PlayerContext context)
 	{
-		if (moveInput == Vector2.zero)
+		if (context.InputCache.MoveInput == Vector2.zero)
 		{
-			state.IsMoving = false;
+			context.State.IsMoving = false;
 			return;
 		}
 
-		Vector3 forward = cameraPivot.forward;
-		Vector3 right = cameraPivot.right;
+		Vector3 forward = context.CameraPivot.forward;
+		Vector3 right = context.CameraPivot.right;
 
 		forward.y = 0f;
 		right.y = 0f;
@@ -19,12 +20,12 @@ public class WalkMovementStrategy : IMovementStrategy
 		forward.Normalize();
 		right.Normalize();
 
-		Vector3 moveDir = forward * moveInput.y + right * moveInput.x;
-		float speed = isSprinting ? settings.sprintSpeed : settings.speed;
-		Vector3 targetPosition = rb.position + moveDir.normalized * speed * Time.fixedDeltaTime;
+		Vector3 moveDir = forward * context.InputCache.MoveInput.y + right * context.InputCache.MoveInput.x;
+		float speed = context.InputCache.SprintPressed ? context.Settings.sprintSpeed : context.Settings.speed;
+		Vector3 targetPosition = context.Rigidbody.position + moveDir.normalized * speed * Time.fixedDeltaTime;
 
-		rb.MovePosition(targetPosition);
-		state.IsMoving = true;
+		context.Rigidbody.MovePosition(targetPosition);
+		context.State.IsMoving = true;
 	}
 }
 

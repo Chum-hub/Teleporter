@@ -1,17 +1,14 @@
 using UnityEngine;
 using Zenject;
 
-public class GameInstaller : MonoInstaller
+namespace Installers
 {
-	[SerializeField] private MovementSetting _movementSetting;
-
-
-	public override void InstallBindings()
+	public class GameInstaller : MonoInstaller
 	{
-		Debug.Log("[GameInstaller] Installing Game-specific bindings...");
-		
-		Container.Bind<MovementSetting>().FromInstance(_movementSetting).AsSingle();
-		
-		Debug.Log("[GameInstaller] Bindings complete.");
+		public override void InstallBindings()
+		{
+			Debug.Log("[GameInstaller] Installing Game-specific bindings...");
+			Debug.Log("[GameInstaller] Bindings complete.");
+		}
 	}
 }
