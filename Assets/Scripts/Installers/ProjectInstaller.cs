@@ -10,11 +10,18 @@ namespace Installers
         {
             Debug.Log("[ProjectInstaller] Installing global bindings...");
 
-            Container.Bind<MovementSetting>().FromInstance(_movementSetting).AsSingle();
+            Container.Bind<MovementSetting>()
+            .FromInstance(_movementSetting)
+            .AsSingle();
             
             //Container.BindInterfacesAndSelfTo<GameManager>().AsSingle();
-            Container.BindInterfacesAndSelfTo<SceneLoaderService>().FromNewComponentOnNewGameObject().AsSingle();
-            Container.BindInterfacesAndSelfTo<Bootstrapper>().AsSingle();
+            Container.BindInterfacesAndSelfTo<SceneLoaderService>()
+            .FromNewComponentOnNewGameObject()
+            .WithGameObjectName("SceneLoaderService")
+            .AsSingle();
+
+            Container.BindInterfacesAndSelfTo<Bootstrapper>()
+            .AsSingle();
 
             Debug.Log("[ProjectInstaller] Global bindings complete.");
         }
