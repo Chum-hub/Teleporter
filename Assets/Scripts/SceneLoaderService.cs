@@ -1,21 +1,15 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public interface ISceneLoaderService
-{
-    void LoadScene(string sceneName);
-    void LoadScene(int sceneIndex);
-    void LoadNextScene();
-    void LoadPreviousScene();
-    void LoadSceneAsync(string sceneName);
-}
+using UnityEngine.UI;
+using TMPro;
+using System.Collections;
+using Interfaces;
+using System;
 
 public class SceneLoaderService : MonoBehaviour, ISceneLoaderService
 {
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
+    [SerializeField] private Slider _slider;
+    [SerializeField] private TextMeshProUGUI _text;
 
     public void LoadScene(string sceneName)
     {
@@ -40,5 +34,33 @@ public class SceneLoaderService : MonoBehaviour, ISceneLoaderService
     public void LoadSceneAsync(string sceneName)
     {
         SceneManager.LoadSceneAsync(sceneName);
+    }
+
+    public void LoadSceneAsyncWithProgress(string sceneName, Action<float> onProgress)
+    {
+        StartCoroutine(LoadSceneAsyncCoroutine(sceneName, onProgress));
+    }
+
+    private IEnumerator LoadSceneAsyncCoroutine(string sceneName, Action<float> onProgress)
+    {
+        var op = SceneManager.LoadSceneAsync(sceneName);
+        op.allowSceneActivation = false;
+
+        while (!op.isDone)
+        {
+            float progress = Mathf.Clamp01(op.progress / 0.9f);
+            onProgress?.Invoke(progress);
+            _slider.value = progress;
+            _text.text = $"Loading... {(int)(progress * 100)}%";
+            if (op.progress >= 0.9f)
+            {
+                onProgress?.Invoke(1f);
+                op.allowSceneActivation = true;
+                _slider.value = 1f;
+                _text.text = "Yeah its 100% let me sec...";
+                yield return new WaitForSeconds(1f);
+            }
+            yield return null;
+        }
     }
 }
