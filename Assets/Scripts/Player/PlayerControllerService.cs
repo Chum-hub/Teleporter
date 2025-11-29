@@ -1,5 +1,4 @@
 using Interfaces;
-using UnityEngine;
 using Zenject;
 
 namespace Player
@@ -29,7 +28,6 @@ namespace Player
 
 		public void FixedTick()
 		{
-			Debug.Log("[PlayerControllerService] FixedTick()");
 			HandleMovement();
 			HandleJump();
 			HandleLook();

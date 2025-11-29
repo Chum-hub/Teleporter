@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 using Slider = UnityEngine.UI.Slider;
@@ -7,8 +8,7 @@ public class Bootstrapper : MonoBehaviour
 {
     private void Start()
     {
-        // Найти SceneLoaderService на Canvas (по типу или тегу)
-        var loader = FindObjectOfType<SceneLoaderService>();
+        var loader = FindFirstObjectByType<SceneLoaderService>();
         if (loader != null)
         {
             loader.LoadSceneAsyncWithProgress("MainMenu", progress =>

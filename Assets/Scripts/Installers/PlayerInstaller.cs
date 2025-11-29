@@ -20,47 +20,36 @@ namespace Installers
 			Container.Bind<CharacterState>().AsSingle();
 	
 
-			// Prefab instantiation
-			var playerInstance = Container.InstantiatePrefabForComponent<Player.Player>(
-				_setting.playerPrefab,
-				_setting.spawnPoint.position,
-				Quaternion.identity,
-				null
-			);
+		// Prefab instantiation
+		var playerInstance = Container.InstantiatePrefabForComponent<Player.Player>(
+			_setting.playerPrefab,
+			_setting.spawnPoint.position,
+			Quaternion.identity,
+			null
+		);
 
-			var playerInstanceTransform = playerInstance.transform;
-			var playerRigidbody = playerInstance.GetComponent<Rigidbody>();
-			var cameraPivot = playerInstanceTransform.Find("CameraPivot");
-			if (cameraPivot is null)
-			{
-				Debug.LogError("[PlayerInstaller] CameraPivot not found in player prefab!");
-				return;
-			}
+		var playerTransform = playerInstance.transform;
+		var playerRigidbody = playerInstance.GetComponent<Rigidbody>();
+		var cameraPivot = playerTransform.Find("CameraPivot");
 
-			Container.Bind<Transform>().WithId("PlayerTransform").FromInstance(playerInstanceTransform).AsTransient();
-			Container.Bind<Rigidbody>().FromInstance(playerRigidbody).AsTransient();
-			Container.Bind<Transform>().WithId("CameraPivot").FromInstance(cameraPivot).AsTransient();
+		// Bind Unity components with IDs for PlayerContext
+		Container.Bind<Transform>().WithId("PlayerTransform").FromInstance(playerTransform).AsTransient();
+		Container.Bind<Rigidbody>().FromInstance(playerRigidbody).AsTransient();
+		Container.Bind<Transform>().WithId("CameraPivot").FromInstance(cameraPivot).AsTransient();
 
-			// Movement logic
-			Container.Bind<IMovementStrategy>().To<WalkMovementStrategy>().AsTransient();
-			Container.Bind<ILookStrategy>().To<LookStrategy>().AsTransient();
-			Container.Bind<IJumpStrategy>().To<JumpStrategy>().AsTransient();
-			Container.Bind<IDashStrategy>().To<DashStrategy>().AsTransient();
+		// Movement strategies
+		Container.Bind<IMovementStrategy>().To<WalkMovementStrategy>().AsTransient();
+		Container.Bind<ILookStrategy>().To<LookStrategy>().AsTransient();
+		Container.Bind<IJumpStrategy>().To<JumpStrategy>().AsTransient();
+		Container.Bind<IDashStrategy>().To<DashStrategy>().AsTransient();
 
-			// PlayerContext
-			Container.Bind<PlayerContext>().FromMethod(ctx =>
-			{
-				var characterState = ctx.Container.Resolve<CharacterState>();
-				var inputCache = ctx.Container.Resolve<PlayerInputCache>();
-				var movementSetting = ctx.Container.Resolve<MovementSetting>();
-				return new PlayerContext(playerInstanceTransform, characterState, movementSetting, playerRigidbody, inputCache, cameraPivot);
-			}).AsSingle();
+		// PlayerContext - автоматический constructor injection
+		Container.Bind<PlayerContext>().AsSingle();
 
+		// Controller service
+		Container.BindInterfacesAndSelfTo<PlayerControllerService>().AsSingle();
 
-			// Controller service
-			Container.BindInterfacesAndSelfTo<PlayerControllerService>().AsSingle();
-
-			Debug.Log("[PlayerInstaller] Bindings complete.");
+		Debug.Log("[PlayerInstaller] Bindings complete.");
 		}
 	}
 

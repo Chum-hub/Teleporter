@@ -13,15 +13,6 @@ namespace Installers
             Container.Bind<MovementSetting>()
             .FromInstance(_movementSetting)
             .AsSingle();
-            
-            //Container.BindInterfacesAndSelfTo<GameManager>().AsSingle();
-            Container.BindInterfacesAndSelfTo<SceneLoaderService>()
-            .FromNewComponentOnNewGameObject()
-            .WithGameObjectName("SceneLoaderService")
-            .AsSingle();
-
-            Container.BindInterfacesAndSelfTo<Bootstrapper>()
-            .AsSingle();
 
             Debug.Log("[ProjectInstaller] Global bindings complete.");
         }

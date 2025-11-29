@@ -11,12 +11,12 @@ public class SceneLoaderService : MonoBehaviour, ISceneLoaderService
     [SerializeField] private Slider _slider;
     [SerializeField] private TextMeshProUGUI _text;
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(String sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
-    public void LoadScene(int sceneIndex)
+    public void LoadScene(Int32 sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
     }
@@ -31,34 +31,34 @@ public class SceneLoaderService : MonoBehaviour, ISceneLoaderService
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
-    public void LoadSceneAsync(string sceneName)
+    public void LoadSceneAsync(String sceneName)
     {
         SceneManager.LoadSceneAsync(sceneName);
     }
 
-    public void LoadSceneAsyncWithProgress(string sceneName, Action<float> onProgress)
+    public void LoadSceneAsyncWithProgress(String sceneName, Action<Single> onProgress)
     {
         StartCoroutine(LoadSceneAsyncCoroutine(sceneName, onProgress));
     }
 
-    private IEnumerator LoadSceneAsyncCoroutine(string sceneName, Action<float> onProgress)
+    private IEnumerator LoadSceneAsyncCoroutine(String sceneName, Action<Single> onProgress)
     {
         var op = SceneManager.LoadSceneAsync(sceneName);
         op.allowSceneActivation = false;
 
         while (!op.isDone)
         {
-            float progress = Mathf.Clamp01(op.progress / 0.9f);
+            var progress = Mathf.Clamp01(op.progress / 0.9f);
             onProgress?.Invoke(progress);
             _slider.value = progress;
-            _text.text = $"Loading... {(int)(progress * 100)}%";
+            _text.text = $"Loading... {(Int32)(progress * 100)}%";
             if (op.progress >= 0.9f)
             {
                 onProgress?.Invoke(1f);
                 op.allowSceneActivation = true;
                 _slider.value = 1f;
                 _text.text = "Yeah its 100% let me sec...";
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
             }
             yield return null;
         }

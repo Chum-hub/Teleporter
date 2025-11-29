@@ -1,15 +1,16 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MovementSetting", menuName = "Setting/Movement")]
 public class MovementSetting : ScriptableObject
 {
-	public float speed;
-	public float jumpForce;
-	public float sprintSpeed;
-	public float maxLookAngle;
-	public float minLookAngle;
-	public float lookSensitivity;
-	public float dashForce;
-	public float dashCooldown;
-	public float throwForce;
+	public Single speed;
+	public Single jumpForce;
+	public Single sprintSpeed;
+	public Single maxLookAngle;
+	public Single minLookAngle;
+	public Single lookSensitivity;
+	public Single dashForce;
+	public Single dashCooldown;
+	public Single throwForce;
 }
