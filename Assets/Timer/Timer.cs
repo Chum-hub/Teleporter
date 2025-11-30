@@ -1,10 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-public class Timer
+namespace Timer
 {
-	public Boolean IsCooldownDone(Single lastOperationDone, Single cooldown)
+	public class Timer
 	{
-		return Time.time >= lastOperationDone + cooldown;
+		public Boolean IsCooldownDone(Single lastOperationDone, Single cooldown)
+		{
+			return Time.time >= lastOperationDone + cooldown;
+		}
 	}
 }

@@ -6,7 +6,7 @@ namespace Player
 	public class DashStrategy : IDashStrategy
 	{
 		private Single _lastDashTime;
-		private readonly Timer _timer = new Timer();
+		private readonly Timer.Timer _timer = new Timer.Timer();
 
 		public void Dash(PlayerContext context)
 		{
@@ -30,8 +30,6 @@ namespace Player
 			context.Rigidbody.AddForce(dashDir.normalized * context.Settings.dashForce, ForceMode.Impulse);
 			context.State.IsDashReady = false;
 			_lastDashTime = Time.time;
-
-			// todo
 		}
 	}
 }

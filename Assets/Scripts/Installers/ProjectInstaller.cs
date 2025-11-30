@@ -1,3 +1,4 @@
+using ScriptableObjects;
 using Zenject;
 using UnityEngine;
 

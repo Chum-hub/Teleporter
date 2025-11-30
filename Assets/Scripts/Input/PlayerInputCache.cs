@@ -38,14 +38,12 @@ namespace Input
 		
 		public void Tick()
 		{
-			Debug.Log("[PlayerInputCache] Tick()");
-			
 			MoveInput = _move.ReadValue<Vector2>();
 			LookInput = _look.ReadValue<Vector2>();
 			JumpPressed = _jump.IsPressed();
 			DashPressed = _dash.IsPressed();
 			SprintPressed = _sprint.IsPressed();
-			ThrowPressed = _throw.triggered;
+			ThrowPressed = _throw.IsPressed();
 		}
 
 		public void Dispose()

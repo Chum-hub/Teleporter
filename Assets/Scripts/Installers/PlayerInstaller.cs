@@ -43,7 +43,7 @@ namespace Installers
 		Container.Bind<IJumpStrategy>().To<JumpStrategy>().AsTransient();
 		Container.Bind<IDashStrategy>().To<DashStrategy>().AsTransient();
 
-		// PlayerContext - автоматический constructor injection
+		// PlayerContext
 		Container.Bind<PlayerContext>().AsSingle();
 
 		// Controller service
