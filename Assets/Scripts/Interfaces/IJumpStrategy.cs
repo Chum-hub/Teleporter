@@ -5,5 +5,5 @@ using UnityEngine.InputSystem;
 
 public interface IJumpStrategy
 {
-	public void Jump(PlayerContext context);
+	public void Jump();
 }

@@ -1,18 +1,41 @@
+using Input;
 using Interfaces;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Player
 {
 	public class LookStrategy : ILookStrategy
 	{
-	
-		public void Look(PlayerContext context)
-		{
-			context.State.VerticalLookAngle -= context.InputCache.LookInput.y * context.Settings.lookSensitivity;
-			context.State.VerticalLookAngle = Mathf.Clamp(context.State.VerticalLookAngle, context.Settings.minLookAngle, context.Settings.maxLookAngle);
+		private readonly Transform _charControl;
+		private readonly CharacterState _state;
+		private readonly MovementSetting _setting;
+		private readonly PlayerInputCache _inputCache;
+		private readonly GameObject _head;
 
-			context.CameraPivot.localRotation = Quaternion.Euler(context.State.VerticalLookAngle, 0, 0);
-			context.CharacterTransform.Rotate(Vector3.up * context.InputCache.LookInput.x * context.Settings.lookSensitivity);
+		public LookStrategy(
+			Transform charControl,
+			CharacterState state,
+			MovementSetting setting,
+			PlayerInputCache inputCache,
+			GameObject head)
+		{
+			_charControl = charControl;
+			_state = state;
+			_setting = setting;
+			_inputCache = inputCache;
+			_head = head;
+		}
+
+		public void Look()
+		{
+			_state.VerticalLookAngle -= _inputCache.LookInput.y * _setting.lookSensitivity;
+			_state.VerticalLookAngle = Mathf.Clamp(_state.VerticalLookAngle, _setting.minLookAngle, _setting.maxLookAngle);
+
+			_head.transform.localRotation = Quaternion.Euler(_state.VerticalLookAngle, 0, 0);
+			_charControl.Rotate(Vector3.up * _inputCache.LookInput.x * _setting.lookSensitivity);
+
+			Debug.Log("Look");
 		}
 	}
 }

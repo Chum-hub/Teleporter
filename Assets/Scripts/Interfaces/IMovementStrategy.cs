@@ -5,5 +5,5 @@ using UnityEngine.InputSystem;
 
 public interface IMovementStrategy
 {
-	void Move(PlayerContext context);
+	void Move();
 }

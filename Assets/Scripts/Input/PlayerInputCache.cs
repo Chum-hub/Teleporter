@@ -22,6 +22,7 @@ namespace Input
 		{
 			SetupInput();
 			_inputActions.Enable();
+			Debug.Log("input");
 		}
 
 		private void SetupInput()

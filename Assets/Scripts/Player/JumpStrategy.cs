@@ -1,15 +1,39 @@
+using Input;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Player
 {
 	public class JumpStrategy : IJumpStrategy
 	{
-		public void Jump(PlayerContext context)
-		{
-			if (!context.InputCache.JumpPressed || !context.State.IsGrounded) return;
+		private readonly CharacterState _state;
 
-			context.Rigidbody.AddForce(Vector3.up * context.Settings.jumpForce, ForceMode.Impulse);
-			context.State.IsGrounded = false;
+		private readonly MovementSetting _setting;
+
+		private readonly PlayerInputCache _inputCache;
+
+
+
+		private readonly Rigidbody _rb;
+
+		public JumpStrategy(
+			CharacterState state,
+			MovementSetting setting,
+			PlayerInputCache inputCache,
+			Rigidbody rb)
+		{
+			_state = state;
+			_setting = setting;
+			_inputCache = inputCache;
+			_rb = rb;
+		}
+
+		public void Jump()
+		{
+			if (!_inputCache.JumpPressed || !_state.IsGrounded) return;
+
+			_rb.AddForce(Vector3.up * _setting.jumpForce, ForceMode.Impulse);
+			_state.IsGrounded = false;
 		}
 	}
 }

@@ -1,4 +1,6 @@
 using System;
+using Input;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Player
@@ -6,29 +8,61 @@ namespace Player
 	public class DashStrategy : IDashStrategy
 	{
 		private Single _lastDashTime;
-		private readonly Timer.Timer _timer = new Timer.Timer();
 
-		public void Dash(PlayerContext context)
+		private readonly Timer.Timer _timer;
+
+		private readonly CharacterState _state;
+
+		private readonly MovementSetting _setting;
+
+		private readonly PlayerInputCache _inputCache;
+
+		private readonly GameObject _head;
+
+		private readonly Rigidbody _rb;
+
+		public DashStrategy(
+			Timer.Timer timer,
+			CharacterState state,
+			MovementSetting setting,
+			PlayerInputCache inputCache,
+			GameObject head,
+			Rigidbody rb)
 		{
-			if (!context.InputCache.DashPressed ||
-			    Time.time < _lastDashTime + context.Settings.dashCooldown ||
-			    !_timer.IsCooldownDone(_lastDashTime, context.Settings.dashCooldown)
-			   ) return;
+			_timer = timer;
+			_state = state;
+			_setting = setting;
+			_inputCache = inputCache;
+			_head = head;
+			_rb = rb;
+		}
 
-			context.State.IsDashReady = true;
+		public void Dash()
+		{
+			Debug.Log($"{_inputCache.DashPressed}");
 
-			var forward = context.CameraPivot.forward;
-			var right = context.CameraPivot.right;
+			if (!_inputCache.DashPressed)
+				return;
+			
+			if (!_timer.IsCooldownDone(_lastDashTime, _setting.dashCooldown))
+				return;
+			
+			_state.IsDashReady = true;
 
-			forward.y = 0f;
-			right.y = 0f;
+			var camTransform = _head.transform;
+			var forwardDir = camTransform.forward;
+			var rightDir = camTransform.right;
 
-			var dashDir = (forward * context.InputCache.MoveInput.y + right * context.InputCache.MoveInput.x).normalized;
+			forwardDir.y = 0f;
+			rightDir.y = 0f;
+
+			var dashDir = (forwardDir * _inputCache.MoveInput.y + rightDir * _inputCache.MoveInput.x).normalized;
 			if (dashDir == Vector3.zero)
-				dashDir = context.CameraPivot.forward;
+				dashDir = forwardDir;
 
-			context.Rigidbody.AddForce(dashDir.normalized * context.Settings.dashForce, ForceMode.Impulse);
-			context.State.IsDashReady = false;
+			_rb.AddForce(dashDir.normalized * _setting.dashForce, ForceMode.Impulse);
+			
+			_state.IsDashReady = false;
 			_lastDashTime = Time.time;
 		}
 	}
