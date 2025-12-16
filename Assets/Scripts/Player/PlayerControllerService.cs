@@ -1,26 +1,25 @@
 using Interfaces;
-using UnityEngine;
 using Zenject;
 
 namespace Player
 {
 	public class PlayerControllerService : IFixedTickable
 	{
-		private readonly IMovementStrategy _movementStrategy;
-		private readonly ILookStrategy _lookStrategy;
-		private readonly IJumpStrategy _jumpStrategy;
-		private readonly IDashStrategy _dashStrategy;
+		private readonly ICharacterMove _characterMove;
+		private readonly ICharacterLook _characterLook;
+		private readonly ICharacterJump _characterJump;
+		private readonly ICharacterDash _characterDash;
 		
 		public PlayerControllerService(
-			IMovementStrategy movementStrategy,
-			ILookStrategy lookStrategy,
-			IJumpStrategy jumpStrategy,
-			IDashStrategy dashStrategy)
+			ICharacterMove characterMove,
+			ICharacterLook characterLook,
+			ICharacterJump characterJump,
+			ICharacterDash characterDash)
 		{
-			_movementStrategy = movementStrategy;
-			_lookStrategy = lookStrategy;
-			_jumpStrategy = jumpStrategy;
-			_dashStrategy = dashStrategy;
+			_characterMove = characterMove;
+			_characterLook = characterLook;
+			_characterJump = characterJump;
+			_characterDash = characterDash;
 		}
 
 		public void FixedTick()
@@ -31,9 +30,9 @@ namespace Player
 			HandleDash();
 		}
 
-		private void HandleMovement() => _movementStrategy.Move();
-		private void HandleLook() => _lookStrategy.Look();
-		private void HandleJump() => _jumpStrategy.Jump();
-		private void HandleDash() => _dashStrategy.Dash();
+		private void HandleMovement() => _characterMove.Move();
+		private void HandleLook() => _characterLook.Look();
+		private void HandleJump() => _characterJump.Jump();
+		private void HandleDash() => _characterDash.Dash();
 	}
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Enums;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,18 +10,22 @@ namespace ScriptableObjects
 	public class Teleport : ScriptableObject
 	{
 		[Header("Type of Teleport")]
-		public String name;
+		public String _name;
 
 		[Space]
-		
 		[Header("Prefab")]
-		public GameObject prefab;
+		public GameObject _prefab;
+		public Rigidbody _rb;
 		
 		[Space]
-		
 		[Header("Attributes")]
-		public Single throwForce;
-		public Single speed;
-		public Single damage;
+		public Single _throwForce;
+		public Single _speed;
+		public Single _damage;
+
+		[Space]
+
+		[Header("Buffs")]
+		public List<Buffs> _buffs;
 	}
 }

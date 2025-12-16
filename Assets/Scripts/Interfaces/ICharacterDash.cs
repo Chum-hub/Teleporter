@@ -2,7 +2,7 @@ using System;
 using Player;
 using UnityEngine;
 
-public interface IDashStrategy
+public interface ICharacterDash
 {
 	void Dash();
 }

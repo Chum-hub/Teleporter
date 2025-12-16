@@ -1,15 +1,16 @@
 using System;
 using Input;
 using ScriptableObjects;
+using Timer;
 using UnityEngine;
 
 namespace Player
 {
-	public class DashStrategy : IDashStrategy
+	public class CharacterDash : ICharacterDash
 	{
 		private Single _lastDashTime;
 
-		private readonly Timer.Timer _timer;
+		private readonly CooldownTimer _cooldownTimer;
 
 		private readonly CharacterState _state;
 
@@ -21,15 +22,15 @@ namespace Player
 
 		private readonly Rigidbody _rb;
 
-		public DashStrategy(
-			Timer.Timer timer,
+		public CharacterDash(
+			Timer.CooldownTimer cooldownTimer,
 			CharacterState state,
 			MovementSetting setting,
 			PlayerInputCache inputCache,
 			GameObject head,
 			Rigidbody rb)
 		{
-			_timer = timer;
+			_cooldownTimer = cooldownTimer;
 			_state = state;
 			_setting = setting;
 			_inputCache = inputCache;
@@ -44,7 +45,7 @@ namespace Player
 			if (!_inputCache.DashPressed)
 				return;
 			
-			if (!_timer.IsCooldownDone(_lastDashTime, _setting.dashCooldown))
+			if (!_cooldownTimer.IsCooldownDone(_lastDashTime, _setting.DashCooldown))
 				return;
 			
 			_state.IsDashReady = true;
@@ -52,15 +53,14 @@ namespace Player
 			var camTransform = _head.transform;
 			var forwardDir = camTransform.forward;
 			var rightDir = camTransform.right;
-
-			forwardDir.y = 0f;
+			
 			rightDir.y = 0f;
 
 			var dashDir = (forwardDir * _inputCache.MoveInput.y + rightDir * _inputCache.MoveInput.x).normalized;
 			if (dashDir == Vector3.zero)
 				dashDir = forwardDir;
 
-			_rb.AddForce(dashDir.normalized * _setting.dashForce, ForceMode.Impulse);
+			_rb.AddForce(dashDir.normalized * _setting.DashForce, ForceMode.Impulse);
 			
 			_state.IsDashReady = false;
 			_lastDashTime = Time.time;

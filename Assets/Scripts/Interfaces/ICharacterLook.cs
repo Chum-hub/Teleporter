@@ -2,7 +2,7 @@ using Player;
 
 namespace Interfaces
 {
-	public interface ILookStrategy
+	public interface ICharacterLook
 	{
 		void Look();
 	}

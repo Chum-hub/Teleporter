@@ -3,7 +3,7 @@ using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public interface IJumpStrategy
+public interface ICharacterJump
 {
 	public void Jump();
 }

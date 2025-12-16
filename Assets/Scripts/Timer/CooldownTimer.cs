@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Timer
 {
-	public class Timer
+	public class CooldownTimer
 	{
 		public Boolean IsCooldownDone(Single lastOperationDone, Single cooldown)
 		{

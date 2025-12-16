@@ -3,7 +3,7 @@ using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public interface IMovementStrategy
+public interface ICharacterMove
 {
 	void Move();
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Player
 {
-	public class WalkMovementStrategy : IMovementStrategy
+	public class CharacterMove : ICharacterMove
 	{
 		private readonly CharacterState _state;
 
@@ -17,7 +17,7 @@ namespace Player
 
 		private readonly Rigidbody _rb;
 
-		public WalkMovementStrategy(
+		public CharacterMove(
 			CharacterState state,
 			MovementSetting setting,
 			PlayerInputCache inputCache,
@@ -50,14 +50,14 @@ namespace Player
 			right.Normalize();
 
 			Vector3 moveDir = forward * _inputCache.MoveInput.y + right * _inputCache.MoveInput.x;
-			Single speed = _inputCache.SprintPressed ? _setting.sprintSpeed : _setting.speed;
+			Single speed = _inputCache.SprintPressed ? _setting.SprintSpeed : _setting.Speed;
 			Vector3 targetPosition = _rb.position + moveDir.normalized * speed * Time.fixedDeltaTime;
 
 			_rb.MovePosition(targetPosition);
 			_state.IsMoving = true;
 
 			Debug.Log("move");
-			Debug.Log($"{_setting.speed}");
+			Debug.Log($"{_setting.Speed}");
 		}
 	}
 }

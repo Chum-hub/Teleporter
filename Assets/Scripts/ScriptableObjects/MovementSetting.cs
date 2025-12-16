@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ScriptableObjects
 {
@@ -8,13 +9,13 @@ namespace ScriptableObjects
 		menuName = "Setting/Movement")]
 	public class MovementSetting : ScriptableObject
 	{
-		public Single speed;
-		public Single jumpForce;
-		public Single sprintSpeed;
-		public Single maxLookAngle;
-		public Single minLookAngle;
-		public Single lookSensitivity;
-		public Single dashForce;
-		public Single dashCooldown;
+		[FormerlySerializedAs("speed")] public Single Speed;
+		[FormerlySerializedAs("jumpForce")] public Single JumpForce;
+		[FormerlySerializedAs("sprintSpeed")] public Single SprintSpeed;
+		[FormerlySerializedAs("maxLookAngle")] public Single MaxLookAngle;
+		[FormerlySerializedAs("minLookAngle")] public Single MinLookAngle;
+		[FormerlySerializedAs("lookSensitivity")] public Single LookSensitivity;
+		[FormerlySerializedAs("dashForce")] public Single DashForce;
+		[FormerlySerializedAs("dashCooldown")] public Single DashCooldown;
 	}
 }

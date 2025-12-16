@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Player
 {
-	public class JumpStrategy : IJumpStrategy
+	public class CharacterJump : ICharacterJump
 	{
 		private readonly CharacterState _state;
 
@@ -16,7 +16,7 @@ namespace Player
 
 		private readonly Rigidbody _rb;
 
-		public JumpStrategy(
+		public CharacterJump(
 			CharacterState state,
 			MovementSetting setting,
 			PlayerInputCache inputCache,
@@ -32,7 +32,7 @@ namespace Player
 		{
 			if (!_inputCache.JumpPressed || !_state.IsGrounded) return;
 
-			_rb.AddForce(Vector3.up * _setting.jumpForce, ForceMode.Impulse);
+			_rb.AddForce(Vector3.up * _setting.JumpForce, ForceMode.Impulse);
 			_state.IsGrounded = false;
 		}
 	}

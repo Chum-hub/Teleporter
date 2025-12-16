@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Player
 {
-	public class LookStrategy : ILookStrategy
+	public class CharacterLook : ICharacterLook
 	{
 		private readonly Transform _charControl;
 		private readonly CharacterState _state;
@@ -13,7 +13,7 @@ namespace Player
 		private readonly PlayerInputCache _inputCache;
 		private readonly GameObject _head;
 
-		public LookStrategy(
+		public CharacterLook(
 			Transform charControl,
 			CharacterState state,
 			MovementSetting setting,
@@ -29,11 +29,11 @@ namespace Player
 
 		public void Look()
 		{
-			_state.VerticalLookAngle -= _inputCache.LookInput.y * _setting.lookSensitivity;
-			_state.VerticalLookAngle = Mathf.Clamp(_state.VerticalLookAngle, _setting.minLookAngle, _setting.maxLookAngle);
+			_state.VerticalLookAngle -= _inputCache.LookInput.y * _setting.LookSensitivity;
+			_state.VerticalLookAngle = Mathf.Clamp(_state.VerticalLookAngle, _setting.MinLookAngle, _setting.MaxLookAngle);
 
 			_head.transform.localRotation = Quaternion.Euler(_state.VerticalLookAngle, 0, 0);
-			_charControl.Rotate(Vector3.up * _inputCache.LookInput.x * _setting.lookSensitivity);
+			_charControl.Rotate(Vector3.up * _inputCache.LookInput.x * _setting.LookSensitivity);
 
 			Debug.Log("Look");
 		}

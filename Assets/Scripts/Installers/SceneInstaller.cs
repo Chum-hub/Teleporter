@@ -2,10 +2,10 @@ using Input;
 using Interfaces;
 using Player;
 using ScriptableObjects;
+using Timer;
 using Unity.Cinemachine;
 using UnityEngine;
 using Zenject;
-using Object = System.Object;
 
 namespace Installers
 {
@@ -38,7 +38,7 @@ namespace Installers
 				.AsSingle();
 
 			Container
-				.Bind<Timer.Timer>()
+				.Bind<CooldownTimer>()
 				.AsTransient();
 
 			Container
@@ -69,30 +69,26 @@ namespace Installers
 				.Bind<ICharacter>()
 				.FromInstance(_character)
 				.AsSingle();
-
-			// Container
-			// 	.Bind<PlayerContext>()
-			// 	.AsSingle();
 			
 			Container
-				.Bind<IDashStrategy>()
-				.To<DashStrategy>()
+				.Bind<ICharacterDash>()
+				.To<CharacterDash>()
 				.AsSingle();
 
 
 			Container
-				.Bind<IJumpStrategy>()
-				.To<JumpStrategy>()
+				.Bind<ICharacterJump>()
+				.To<CharacterJump>()
 				.AsSingle();
 
 			Container
-				.Bind<ILookStrategy>()
-				.To<LookStrategy>()
+				.Bind<ICharacterLook>()
+				.To<CharacterLook>()
 				.AsSingle();
 
 			Container
-				.Bind<IMovementStrategy>()
-				.To<WalkMovementStrategy>()
+				.Bind<ICharacterMove>()
+				.To<CharacterMove>()
 				.AsSingle();
 
 			Container
