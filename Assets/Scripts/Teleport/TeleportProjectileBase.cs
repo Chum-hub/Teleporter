@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Enums;
 using Interfaces;
@@ -8,18 +8,18 @@ namespace Teleport
 {
 	public abstract class TeleportProjectileBase : MonoBehaviour, ITeleportThrowable
 	{
-		protected ScriptableObjects.Teleport _teleportSetting;
+		[SerializeField] protected ScriptableObjects.Teleport _teleportSetting;
 		protected List<Buffs> _buffsList;
 		
 		
-		public abstract void OnCollisionEnter(Collision other);
+		protected abstract void OnCollisionEnter(Collision other);
 
-		public void SetBuffs(Buffs buff)
+		protected void SetBuffs(Buffs buff)
 		{
 			_buffsList.Add(buff);
 		}
 
-		public List<Buffs> GetBuff()
+		protected List<Buffs> GetBuff()
 		{
 			return _buffsList;
 		}
@@ -29,14 +29,19 @@ namespace Teleport
 			return gameObject.transform;
 		}
 
-		public Single GetSpeed()
+		protected void SetPosition(Vector3 pos)
+		{
+			gameObject.transform.Translate(pos);
+		}
+
+		protected Single GetSpeed()
 		{
 			return _teleportSetting._speed;
 		}
 
-		public abstract void Detonate();
+		protected abstract void Detonate();
 
-		public void Destroy()
+		protected void Destroy()
 		{
 			Destroy(gameObject);
 		}

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff145447279c4c95847af8ac0c945167, type: 3}
   m_Name: TeleportProjectile
   m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Teleport
-  _name: 
-  _prefab: {fileID: 0}
-  _rb: {fileID: 0}
-  _throwForce: 0
-  _speed: 0
-  _damage: 0
-  _buffs: 
+  _name: Fire
+  _prefab: {fileID: 8469340656144921636, guid: c33be026b48737247ae1d27008064d0d, type: 3}
+  _rb: {fileID: 3541961778987616859, guid: c33be026b48737247ae1d27008064d0d, type: 3}
+  _throwForce: 30
+  _speed: 50
+  _damage: 60
+  _buffs: 0200000003000000

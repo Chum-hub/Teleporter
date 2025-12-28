@@ -3,14 +3,14 @@ using Zenject;
 
 namespace Player
 {
-	public class PlayerControllerService : IFixedTickable
+	public class CharacterControllerService : IFixedTickable
 	{
 		private readonly ICharacterMove _characterMove;
 		private readonly ICharacterLook _characterLook;
 		private readonly ICharacterJump _characterJump;
 		private readonly ICharacterDash _characterDash;
 		
-		public PlayerControllerService(
+		public CharacterControllerService(
 			ICharacterMove characterMove,
 			ICharacterLook characterLook,
 			ICharacterJump characterJump,

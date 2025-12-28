@@ -1,3 +1,4 @@
+using Data;
 using Input;
 using Interfaces;
 using Player;
@@ -5,6 +6,7 @@ using ScriptableObjects;
 using Timer;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Installers
@@ -14,7 +16,7 @@ namespace Installers
 		[SerializeField]
 		private CinemachineCamera _camera;
 		[SerializeField]
-		private Transform _transform;
+		private Transform _characterTransform;
 		[SerializeField]
 		private Rigidbody _rb;
 		[SerializeField]
@@ -48,7 +50,7 @@ namespace Installers
 			
 			Container
 				.Bind<Transform>()
-				.FromInstance(_transform)
+				.FromInstance(_characterTransform)
 				.AsSingle();
 
 			Container
@@ -63,6 +65,10 @@ namespace Installers
 
 			Container
 				.Bind<CharacterState>()
+				.AsSingle();
+
+			Container
+				.Bind<CharacterLookData>()
 				.AsSingle();
 
 			Container
@@ -92,7 +98,7 @@ namespace Installers
 				.AsSingle();
 
 			Container
-				.BindInterfacesAndSelfTo<PlayerControllerService>()
+				.BindInterfacesAndSelfTo<CharacterControllerService>()
 				.AsSingle();
 			
 			Debug.Log("[SceneInstaller] Bindings complete.");

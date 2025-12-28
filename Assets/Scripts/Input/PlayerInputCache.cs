@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Zenject;
+using UnityEngine.UIElements;
 
 namespace Input
 {
-	public class PlayerInputCache : ITickable, IDisposable
+	public class PlayerInputCache : IDisposable
 	{
 		private InputSystem_Actions _inputActions;
 
@@ -14,7 +14,7 @@ namespace Input
 		public Boolean JumpPressed { get; private set; }
 		public Boolean DashPressed { get; private set; }
 		public Boolean SprintPressed { get; private set; }
-		public Boolean ThrowPressed { get; set; }
+		public Boolean ThrowPressed { get; private set; }
 
 		private InputAction _move, _jump, _look, _sprint, _dash, _throw;
 
@@ -22,7 +22,7 @@ namespace Input
 		{
 			SetupInput();
 			_inputActions.Enable();
-			Debug.Log("input");
+			BindCallbacks();
 		}
 
 		private void SetupInput()
@@ -36,20 +36,91 @@ namespace Input
 			_dash = _inputActions.Player.Dash;
 			_throw = _inputActions.Player.Throw;
 		}
-		
-		public void Tick()
+
+		private void BindCallbacks()
 		{
-			MoveInput = _move.ReadValue<Vector2>();
-			LookInput = _look.ReadValue<Vector2>();
-			JumpPressed = _jump.IsPressed();
-			DashPressed = _dash.IsPressed();
-			SprintPressed = _sprint.IsPressed();
-			ThrowPressed = _throw.IsPressed();
+			_move.performed += OnMove;
+			_move.canceled += OnMove;
+
+			_look.performed += OnLook;
+			_look.canceled += OnLook;
+
+			_sprint.started += OnSprint;
+			_sprint.canceled += OnSprint;
+
+			_jump.started += OnJump;
+			_jump.canceled += OnJump;
+
+			_dash.started += OnDash;
+			_dash.canceled += OnDash;
+
+			_throw.started += OnThrow;
+			_throw.canceled += OnThrow;
+		}
+
+		private void OnMove(InputAction.CallbackContext ctx)
+		{
+			MoveInput = ctx.ReadValue<Vector2>();
+
+			if (ctx.canceled)
+			{
+				MoveInput = Vector2.zero;
+			}
+		}
+
+		private void OnLook(InputAction.CallbackContext ctx)
+		{
+			LookInput = ctx.ReadValue<Vector2>();
+			if (ctx.canceled)
+				LookInput = Vector2.zero;
+		}
+
+		private void OnSprint(InputAction.CallbackContext ctx)
+		{
+			if (ctx.started)
+			{
+				SprintPressed = true;
+			}
+
+			if (ctx.canceled)
+			{
+				SprintPressed = false;
+			}
+		}
+
+		private void OnJump(InputAction.CallbackContext ctx)
+		{
+			if (ctx.started)
+			{
+				JumpPressed = true;
+			}
+
+			if (ctx.canceled)
+			{
+				JumpPressed = false;
+			}
+		}
+
+		private void OnDash(InputAction.CallbackContext ctx)
+		{
+			if (ctx.started)
+				DashPressed = true;
+			if (ctx.canceled)
+				DashPressed = false;
+		}
+
+		private void OnThrow(InputAction.CallbackContext ctx)
+		{
+			if (ctx.started)
+				ThrowPressed = true;
+			if (ctx.canceled)
+				ThrowPressed = false;
 		}
 
 		public void Dispose()
 		{
 			_inputActions.Disable();
+
 			_inputActions?.Dispose();
 			_move?.Dispose();
 			_jump?.Dispose();

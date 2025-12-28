@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Enums;
 using UnityEngine;
@@ -10,20 +10,18 @@ namespace Teleport
 	{
 		[Inject]
 		public void Construct(
-			List<Buffs> buffs,
-			ScriptableObjects.Teleport teleportFire
+			List<Buffs> buffs
 		)
 		{
 			_buffsList = buffs;
-			_teleportSetting = teleportFire;
 		}
 
-		public override void OnCollisionEnter(Collision other)
+		protected override void OnCollisionEnter(Collision other)
 		{
 			throw new NotImplementedException();
 		}
 
-		public override void Detonate()
+		protected override void Detonate()
 		{
 			throw new NotImplementedException();
 		}

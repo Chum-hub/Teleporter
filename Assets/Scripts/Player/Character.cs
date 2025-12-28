@@ -9,7 +9,7 @@ namespace Player
 		private CharacterState _characterState;
 		//private Health _health;
 		//public event Action Death;
-
+		//todo нарезать стейт и хранить его здесь что бы разделить отвественность изменений и потом впихнуть сюда модификаторы
 		[Inject]
 		public void Construct(CharacterState characterState)
 		{

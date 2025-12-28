@@ -1,11 +1,11 @@
 using System;
+using UnityEngine;
 
 namespace Player
 {
 	public sealed class CharacterState
 	{
-		public Single VerticalLookAngle { get; set; } = 0;
-
+		
 		public Boolean IsGrounded { get; set; } = true;
 
 		public Boolean IsDashReady { get; set; } = true;
@@ -13,5 +13,6 @@ namespace Player
 		public Boolean IsMoving { get; set; } = true;
 
 		public Boolean IsThrowReady { get; set; } = true;
+		
 	}
 }
