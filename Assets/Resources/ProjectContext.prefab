@@ -75,4 +75,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5614d56c226ed942b6b940843a454c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSetting: {fileID: 11400000, guid: af9456923f980264893c95866c22317d, type: 2}
+  _setting: {fileID: 11400000, guid: af9456923f980264893c95866c22317d, type: 2}

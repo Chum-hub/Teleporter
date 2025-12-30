@@ -1,12 +1,8 @@
 using Data;
-using Input;
 using Interfaces;
 using Player;
-using ScriptableObjects;
-using Timer;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Installers
@@ -15,49 +11,15 @@ namespace Installers
 	{
 		[SerializeField]
 		private CinemachineCamera _camera;
-		[SerializeField]
-		private Transform _characterTransform;
-		[SerializeField]
-		private Rigidbody _rb;
+		
 		[SerializeField]
 		private Character _character;
-		[SerializeField]
-		private MovementSetting _setting;
-		[SerializeField]
-		private GameObject _head;
+		
 
 		public override void InstallBindings()
 		{
 			Debug.Log("[SceneInstaller] Installing Game-specific bindings...");
-
-			Container
-				.Bind<MovementSetting>()
-				.FromInstance(_setting)
-				.AsSingle();
-
-			Container
-				.BindInterfacesAndSelfTo<PlayerInputCache>()
-				.AsSingle();
-
-			Container
-				.Bind<CooldownTimer>()
-				.AsTransient();
-
-			Container
-				.Bind<GameObject>()
-				.FromInstance(_head)
-				.AsSingle();
 			
-			Container
-				.Bind<Transform>()
-				.FromInstance(_characterTransform)
-				.AsSingle();
-
-			Container
-				.Bind<Rigidbody>()
-				.FromInstance(_rb)
-				.AsSingle();
-
 			Container
 				.Bind<CinemachineCamera>()
 				.FromInstance(_camera)
@@ -72,7 +34,7 @@ namespace Installers
 				.AsSingle();
 
 			Container
-				.Bind<ICharacter>()
+				.Bind<Character>()
 				.FromInstance(_character)
 				.AsSingle();
 			
@@ -80,8 +42,7 @@ namespace Installers
 				.Bind<ICharacterDash>()
 				.To<CharacterDash>()
 				.AsSingle();
-
-
+			
 			Container
 				.Bind<ICharacterJump>()
 				.To<CharacterJump>()

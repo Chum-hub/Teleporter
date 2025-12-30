@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c7277aa87312049b971ca0a5deabca, type: 3}
   m_Name: MovementSetting_Standart
   m_EditorClassIdentifier: 
-  speed: 6
-  jumpForce: 6
-  sprintSpeed: 10
-  maxLookAngle: 70
-  minLookAngle: -60
-  lookSensitivity: 0.11
-  dashForce: 30
-  dashCooldown: 3
+  Speed: 6
+  JumpForce: 6
+  SprintSpeed: 10
+  MaxLookAngle: 70
+  MinLookAngle: -60
+  LookSensitivity: 0.2
+  DashForce: 30
+  DashCooldown: 3

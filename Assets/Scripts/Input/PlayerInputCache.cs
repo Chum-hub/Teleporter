@@ -42,7 +42,7 @@ namespace Input
 			_move.performed += OnMove;
 			_move.canceled += OnMove;
 
-			_look.performed += OnLook;
+			_look.started += OnLook;
 			_look.canceled += OnLook;
 
 			_sprint.started += OnSprint;

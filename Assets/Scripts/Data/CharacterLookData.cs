@@ -7,20 +7,20 @@ namespace Data
 {
 	public sealed class CharacterLookData
 	{
-		public Single VerticalLookAngle { get; private set; } = 0;
+		public Single Pitch { get; private set; } = 0;
 
-		public Single HorizontalLookAngle { get; private set; } = 0;
+		public Single Yaw { get; private set; } = 0;
 
-		public void SetVerticalAngle(Single delta, Single minAngle, Single maxAngle)
+		public void SetPitch(Single delta, Single min, Single max)
 		{
-			VerticalLookAngle = Math.Clamp(delta, minAngle, maxAngle);
+			Pitch = Math.Clamp(Pitch + delta, min, max);
 		}
 
-		public void SetHorizontalAngle(Single delta)
+		public void SetYaw(Single delta)
 		{
-			HorizontalLookAngle += delta;
+			Yaw += delta;
 		}
 
-		public Vector3 GetLookDirection() => new Vector3(VerticalLookAngle, HorizontalLookAngle, 0f);
+		public Vector3 GetLookDirection() => Quaternion.Euler(Pitch, Yaw, 0f) * Vector3.forward.normalized;
 	}
 }

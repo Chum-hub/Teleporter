@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: _scriptableObjectInstallers.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 957951624770460344, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
+      propertyPath: m_CastShadows
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1275582564140427136, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
       propertyPath: Damping.x
       value: 1
@@ -215,17 +219,21 @@ PrefabInstance:
       propertyPath: _transform
       value: 
       objectReference: {fileID: 784423811}
+    - target: {fileID: 3140325422257518670, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
+      propertyPath: m_Name
+      value: Nose
+      objectReference: {fileID: 0}
     - target: {fileID: 6289650357285717859, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6289650357285717859, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6289650357285717859, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6289650357285717859, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -280,11 +288,6 @@ PrefabInstance:
       addedObject: {fileID: 432082270}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
---- !u!4 &278843090 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2563994115455037646, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
-  m_PrefabInstance: {fileID: 278843089}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &278843091 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3513650372801533547, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
@@ -384,7 +387,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.25171, y: 2.2020001, z: -10.6790905}
+  m_LocalPosition: {x: -8.70011, y: 2.001, z: -10.33309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -716,7 +719,7 @@ GameObject:
   - component: {fileID: 432082270}
   - component: {fileID: 432082269}
   - component: {fileID: 432082272}
-  - component: {fileID: 432082271}
+  - component: {fileID: 432082273}
   - component: {fileID: 432082266}
   m_Layer: 3
   m_Name: CinemachineCamera
@@ -742,7 +745,7 @@ MonoBehaviour:
     m_Bits: 1
   IgnoreTag: Player
   AimDistance: 200
-  NoiseCancellation: 0
+  NoiseCancellation: 1
 --- !u!114 &432082269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -763,7 +766,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 278843090}
+    TrackingTarget: {fileID: 2083092192}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -795,25 +798,12 @@ Transform:
   m_GameObject: {fileID: 432082265}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.59999996, y: 1.1220001, z: -2.9999301}
+  m_LocalPosition: {x: 0.15159988, y: 0.9209999, z: -2.6539998}
   m_LocalScale: {x: 1.6595515, y: 2.9183395, z: 4.7197404}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 784423811}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &432082271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 432082265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4afa82ae3200b82408d605c3dbdd1e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineRotateWithFollowTarget
-  Damping: 0
 --- !u!114 &432082272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,7 +819,7 @@ MonoBehaviour:
   Damping: {x: 0.2, y: 0.5, z: 0.2}
   ShoulderOffset: {x: 0.6, y: -0.4, z: 0}
   VerticalArmLength: 0.85
-  CameraSide: 1
+  CameraSide: 0.638
   CameraDistance: 3
   AvoidObstacles:
     Enabled: 1
@@ -837,9 +827,22 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 1
     IgnoreTag: Player
-    CameraRadius: 0.2
+    CameraRadius: 0.1
     DampingIntoCollision: 0
     DampingFromCollision: 0.5
+--- !u!114 &432082273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432082265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4afa82ae3200b82408d605c3dbdd1e38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineRotateWithFollowTarget
+  Damping: 0
 --- !u!1 &661137259
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,6 +945,7 @@ GameObject:
   - component: {fileID: 1315293099}
   - component: {fileID: 1315293098}
   - component: {fileID: 1315293100}
+  - component: {fileID: 1315293102}
   - component: {fileID: 1315293101}
   m_Layer: 0
   m_Name: SceneContext
@@ -965,6 +969,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 1315293100}
+  - {fileID: 1315293102}
   - {fileID: 1315293101}
   _installerPrefabs: []
   _autoRun: 1
@@ -1011,11 +1016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Installers.GameInstaller
   _camera: {fileID: 432082269}
-  _characterTransform: {fileID: 784423811}
-  _rb: {fileID: 784423807}
   _character: {fileID: 278843091}
-  _setting: {fileID: 11400000, guid: af9456923f980264893c95866c22317d, type: 2}
-  _head: {fileID: 1727084510}
 --- !u!114 &1315293101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1029,9 +1030,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Installers.TeleportProjectileInstaller
   _firePrefab: {fileID: 8194163983417703102, guid: c33be026b48737247ae1d27008064d0d, type: 3}
---- !u!1 &1727084510 stripped
+--- !u!114 &1315293102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315293097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d66c7c6f7f914934bbb092938f38b53e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Installers.PlayerInstaller
+  _head: {fileID: 2083092191}
+  _characterTransform: {fileID: 784423811}
+  _rb: {fileID: 784423807}
+--- !u!1 &2083092191 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8475815428662449507, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2465854346704293992, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
+  m_PrefabInstance: {fileID: 278843089}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2083092192 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7479161118875696276, guid: ad91d228b1a6f3748b8454dcd70eccc3, type: 3}
   m_PrefabInstance: {fileID: 278843089}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807

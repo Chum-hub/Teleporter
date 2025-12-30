@@ -24,9 +24,9 @@ namespace Teleport
 			return _buffsList;
 		}
 
-		public Transform GetPosition()
+		public Vector3 GetPosition()
 		{
-			return gameObject.transform;
+			return gameObject.transform.position;
 		}
 
 		protected void SetPosition(Vector3 pos)

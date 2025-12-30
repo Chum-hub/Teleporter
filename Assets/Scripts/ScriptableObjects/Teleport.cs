@@ -9,7 +9,7 @@ namespace ScriptableObjects
 	public class Teleport : ScriptableObject
 	{
 		[Header("Type of Teleport")]
-		public String _name;
+		public TeleportProjectileType _type;
 
 		[Space]
 		[Header("Prefab")]
